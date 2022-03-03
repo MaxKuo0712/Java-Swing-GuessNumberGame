@@ -20,7 +20,7 @@ public class guessNumberGame {
         gameFrame.setTitle("Guess Number Game");
         gameFrame.setSize(500, 150);
         gameFrame.setLocationRelativeTo(null);
-        gameFrame.setLayout(null);
+        gameFrame.setLayout(null); // null為不使用版面配置管理者，每個元件則要使用setBounds()方法來決定元件的位置
 
         // 標籤1：提示要輸入什麼東西
         inputHint = new JLabel("請輸入" + minValus + "~" + maxValus + "的數字：");
