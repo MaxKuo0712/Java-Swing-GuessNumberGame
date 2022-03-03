@@ -18,7 +18,7 @@ public class guessNumberGame {
         // 定義框架
         gameFrame = new JFrame();
         gameFrame.setTitle("Guess Number Game");
-        gameFrame.setSize(500, 300);
+        gameFrame.setSize(500, 150);
         gameFrame.setLocationRelativeTo(null);
         gameFrame.setLayout(null);
 
