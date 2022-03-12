@@ -24,4 +24,6 @@
 
 ![3](https://user-images.githubusercontent.com/68499661/158032984-ac3337ee-3641-4a7f-aca1-10785f33e670.gif)
 
+4. 看答案：按下看答案，可以直接顯示答案，並自動關閉程式
+
 
