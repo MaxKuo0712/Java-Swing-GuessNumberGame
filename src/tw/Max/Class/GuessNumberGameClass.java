@@ -3,27 +3,31 @@ package tw.Max.Class;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class GuessNumberGameClass extends JFrame {
-    /**
-	 * 
-	 */
+public final class GuessNumberGameClass extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JLabel inputHint;
     private JButton submitButton, cleanButton, showAnsButton;
     private JTextField inputBox;
-    private int minValus = 1; // 預設最小值
-    private int maxValus = 100; // 預設最大值
-    private int targetNumber = (int) (Math.random() * 100 + 1); // 設定隨機目標值1~100
+    private int minValue; // 預設最小值
+    private int maxValue; // 預設最大值
+    private int targetNumber; // 隨機目標值
 
-    public GuessNumberGameClass() {
+    public GuessNumberGameClass(int minValue, int maxValue) {
         // 定義視窗
         super("Guess Number Game");
         setSize(500, 150);
         setLocationRelativeTo(null);
         setLayout(null); // null為不使用版面配置管理者，每個元件則要使用setBounds()方法來決定元件的位置
 
+        // 設定minValue, maxValue
+    	this.minValue = minValue;
+    	this.maxValue = maxValue;
+        
+        // 設定隨機目標值 minValue ~ maxValue
+        targetNumber = setResult(minValue, maxValue);
+        
         // 標籤1：提示要輸入什麼東西
-        inputHint = new JLabel("請輸入" + minValus + "~" + maxValus + "的數字：");
+        inputHint = new JLabel("請輸入" + minValue + "~" + maxValue + "的數字：");
         inputHint.setBounds(0, 5, 500, 20); // 設定絕對位置（x, y, weight, hight）
         inputHint.setHorizontalAlignment(SwingConstants.CENTER);
         add(inputHint);
@@ -87,33 +91,37 @@ public class GuessNumberGameClass extends JFrame {
     public void checkResult(int inputValue, int targetNumber) {
     	
         Boolean checkAns = (inputValue == targetNumber);
-//        Integer.toString(Integer.parseInt(inputBox.getText()))
+
         if (checkAns == true) {
             JOptionPane.showMessageDialog(null, "答對了！ 答案是" + String.valueOf(inputValue), "回答結果",
                     JOptionPane.INFORMATION_MESSAGE);
             System.exit(0);
         } else {
-            if (inputValue <= minValus) {
+            if (inputValue <= minValue) {
                 inputBox.setText(null);
-                JOptionPane.showMessageDialog(null, "請大於 " + minValus, "回答結果",
+                JOptionPane.showMessageDialog(null, "請大於 " + minValue, "回答結果",
                 		JOptionPane.INFORMATION_MESSAGE);
-            } else if (inputValue >= maxValus) {
+            } else if (inputValue >= maxValue) {
                 inputBox.setText(null);
-                JOptionPane.showMessageDialog(null, "請小於 " + maxValus, "回答結果",
+                JOptionPane.showMessageDialog(null, "請小於 " + maxValue, "回答結果",
                 		JOptionPane.INFORMATION_MESSAGE);
             } else {
                 if (inputValue > targetNumber) {
-                    maxValus = inputValue;
+                    maxValue = inputValue;
                 } else if (inputValue < targetNumber) {
-                    minValus = inputValue;
+                    minValue = inputValue;
                 }
                 inputBox.setText(null);
-                inputHint.setText("請輸入" + minValus + "~" + maxValus + "的數字：");
+                inputHint.setText("請輸入" + minValue + "~" + maxValue + "的數字：");
                 JOptionPane.showMessageDialog(null, 
-                		"答錯了，再猜猜看。\n請輸入" + minValus + "~" + maxValus + "的數字", "回答結果",
+                		"答錯了，再猜猜看。\n請輸入" + minValue + "~" + maxValue + "的數字", "回答結果",
                         JOptionPane.INFORMATION_MESSAGE);
             }
         }
+    }
+    
+    public int setResult(int minValue, int maxValue) {
+    	return (int) (Math.random() * maxValue + minValue);
     }
     
     public int getResult() {
