@@ -135,21 +135,22 @@ public class GuessNumberGame extends JFrame implements Serializable {
     
     private int setMinValue() {
     	String inputMinValue = JOptionPane.showInputDialog(null, "請輸入遊戲最小值 (至少為1，預設為1)");
-    	
+
     	if (inputMinValue == null || inputMinValue.equals("")) {
 			JOptionPane.showMessageDialog(null, "因沒有輸入最小值，依照預設為1", "最小值設定",
 					JOptionPane.WARNING_MESSAGE);
-    		minValue = 1;
+			inputMinValue = "1";
+    		return Integer.parseInt(inputMinValue);
     	} else {
-    		if(Integer.parseInt(inputMinValue) < 1) {
+    		if (Integer.parseInt(inputMinValue) < 1) {
     			JOptionPane.showMessageDialog(null, "因少於1，依照預設為1", "最小值設定",
     					JOptionPane.WARNING_MESSAGE);
-    			minValue = 1;
+    			inputMinValue = "1";
+    			return Integer.parseInt(inputMinValue);
     		} else {
-    			minValue = Integer.parseInt(inputMinValue);
+    			return Integer.parseInt(inputMinValue);
     		}
     	}
-		return Integer.parseInt(inputMinValue);
     }
     
     private int setMaxValue() {
@@ -158,17 +159,18 @@ public class GuessNumberGame extends JFrame implements Serializable {
     	if (inputMaxValue == null || inputMaxValue.equals("")) {
 			JOptionPane.showMessageDialog(null, "因沒有輸入最大值，依照預設為100", "最大值設定",
 					JOptionPane.WARNING_MESSAGE);
-    		maxValue = 100;
+			inputMaxValue = "100";
+    		return Integer.parseInt(inputMaxValue);
     	} else {
-    		if(Integer.parseInt(inputMaxValue) < 100) {
+    		if (Integer.parseInt(inputMaxValue) < 100) {
     			JOptionPane.showMessageDialog(null, "因少於100，依照預設為100", "最大值設定",
     					JOptionPane.WARNING_MESSAGE);
-    			maxValue = 100;
+    			inputMaxValue = "100";
+        		return Integer.parseInt(inputMaxValue);
     		} else {
-    			maxValue = Integer.parseInt(inputMaxValue);
+    			return Integer.parseInt(inputMaxValue);
     		}
     	}
-    	return Integer.parseInt(inputMaxValue);
     }
 
     public int setAns(int minValue, int maxValue) {
