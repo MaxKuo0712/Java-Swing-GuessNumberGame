@@ -18,6 +18,7 @@ public class GuessNumberGame extends JFrame implements Serializable {
 	private JButton submitButton, cleanButton, showAnsButton;
 	private JTextField inputBox;
 	
+	// 遊戲初始化
 	public GuessNumberGame() {
 		super("Guess Number Game"); // 設定視窗名稱
 		setSize(300, 150); // 設定視窗大小
@@ -52,7 +53,7 @@ public class GuessNumberGame extends JFrame implements Serializable {
             public void actionPerformed(ActionEvent e) {
                 try {
                 	int inputValue = Integer.parseInt(inputBox.getText());
-                	checkResult(inputValue, answer);
+                	checkResult(inputValue, answer); // 檢查輸入的數字與正解
                 } catch (Exception ex) {
                     inputBox.setText(null);
                     JOptionPane.showMessageDialog(null, "請輸入數字", "輸入錯誤", JOptionPane.ERROR_MESSAGE);
@@ -89,11 +90,13 @@ public class GuessNumberGame extends JFrame implements Serializable {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // 設定關閉
 	}
 
+	/* 程式進入點 */
     public static void main(String[] args) {
     	GuessNumberGame GuessNumber = new GuessNumberGame();
     	GuessNumber.startGame();
     }
     
+	/* 開始遊戲 */
     private void startGame() {
 		JOptionPane.showMessageDialog(null, "開始遊戲囉！\n最小值：" + minValue + " 最大值：" + maxValue,
 				"開始遊戲", JOptionPane.INFORMATION_MESSAGE);
@@ -101,15 +104,17 @@ public class GuessNumberGame extends JFrame implements Serializable {
 		answer = setAns(minValue, maxValue);  // 設定隨機目標值 minValue ~ maxValue
     }
     
+	/* 檢查輸入的數字與正解 */
     public void checkResult(int inputValue, int targetNumber) {
     	
-        Boolean checkAns = (inputValue == targetNumber);
+        Boolean checkAns = (inputValue == targetNumber); // 輸入的數字是否等於正解
 
         if (checkAns == true) {
             JOptionPane.showMessageDialog(null, "答對了！ 答案是" + String.valueOf(inputValue), "回答結果",
                     JOptionPane.INFORMATION_MESSAGE);
-            System.exit(0);
+            System.exit(0); // 答對了，關閉程式
         } else {
+        	// 檢查輸入的數字是否在遊戲範圍內
             if (inputValue <= minValue) {
                 inputBox.setText(null);
                 JOptionPane.showMessageDialog(null, "請大於 " + minValue, "回答結果",
@@ -119,6 +124,7 @@ public class GuessNumberGame extends JFrame implements Serializable {
                 JOptionPane.showMessageDialog(null, "請小於 " + maxValue, "回答結果",
                 		JOptionPane.INFORMATION_MESSAGE);
             } else {
+            	// 如果輸入的數字有在遊戲範圍內，會把遊戲範圍縮小，變更 maxValue, minValue
                 if (inputValue > targetNumber) {
                     maxValue = inputValue;
                 } else if (inputValue < targetNumber) {
@@ -133,9 +139,11 @@ public class GuessNumberGame extends JFrame implements Serializable {
         }
     }
     
+    // 遊戲初始化，設置最小值範圍
     private int setMinValue() {
     	String inputMinValue = JOptionPane.showInputDialog(null, "請輸入遊戲最小值 (至少為1，預設為1)");
-
+    	
+    	// 如果沒有輸入或是為空字串，就帶入預設值1
     	if (inputMinValue == null || inputMinValue.equals("")) {
 			JOptionPane.showMessageDialog(null, "因沒有輸入最小值，依照預設為1", "最小值設定",
 					JOptionPane.WARNING_MESSAGE);
@@ -153,9 +161,11 @@ public class GuessNumberGame extends JFrame implements Serializable {
     	}
     }
     
+    // 遊戲初始化，設置最大值範圍
     private int setMaxValue() {
     	String inputMaxValue = JOptionPane.showInputDialog(null, "請輸入遊戲最大值 (至少為100，預設為100)");
     	
+    	// 如果沒有輸入或是為空字串，就帶入預設值100
     	if (inputMaxValue == null || inputMaxValue.equals("")) {
 			JOptionPane.showMessageDialog(null, "因沒有輸入最大值，依照預設為100", "最大值設定",
 					JOptionPane.WARNING_MESSAGE);
@@ -172,7 +182,8 @@ public class GuessNumberGame extends JFrame implements Serializable {
     		}
     	}
     }
-
+    
+    // 隨機答案設置
     public int setAns(int minValue, int maxValue) {
     	return (int) (Math.random() * (maxValue - minValue) + minValue);
     }
