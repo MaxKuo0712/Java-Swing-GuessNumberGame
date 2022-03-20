@@ -5,10 +5,11 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
+
 import javax.swing.*;
 
-public class GuessNumberGame extends JFrame {
-	private static final long serialVersionUID = 1L;
+public class GuessNumberGame extends JFrame implements Serializable {
 	private int minValue;
 	private int maxValue;
 	private int answer;
